@@ -8,7 +8,6 @@
 <style>
 body {margin:0;font-family:Arial;background:#eef2f7;}
 
-/* TOP BAR */
 .topbar {
     background:#2c466b;
     color:white;
@@ -17,7 +16,6 @@ body {margin:0;font-family:Arial;background:#eef2f7;}
     font-size:14px;
 }
 
-/* HEADER */
 .header-main {
     background:white;
     padding:20px 30px;
@@ -30,9 +28,7 @@ body {margin:0;font-family:Arial;background:#eef2f7;}
     gap:15px;
 }
 
-.header-flex img {
-    width:55px;
-}
+.header-flex img {width:55px;}
 
 .header-title {
     font-size:28px;
@@ -53,7 +49,6 @@ body {margin:0;font-family:Arial;background:#eef2f7;}
     padding-top:10px;
 }
 
-/* CONTAINER */
 .container {
     max-width:950px;
     margin:40px auto;
@@ -87,11 +82,9 @@ button {
     cursor:pointer;
 }
 
-/* STATUS */
 .status {text-align:center;margin:20px;}
 .success {background:green;color:white;padding:10px 20px;border-radius:5px;}
 
-/* GRID */
 .grid {
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -107,12 +100,12 @@ button {
 .label {font-size:12px;color:#666;}
 .value {font-weight:bold;}
 
-/* PHOTO */
 .photo {
     position:absolute;
     right:25px;
     top:25px;
 }
+
 .photo img {
     width:110px;
     height:130px;
@@ -122,7 +115,6 @@ button {
 
 .result-box {position:relative;}
 
-/* FOOTER */
 footer {
     background:#f2f2f2;
     padding:30px 20px;
@@ -137,9 +129,7 @@ footer {
     align-items:flex-start;
 }
 
-.footer-logo img {
-    width:70px;
-}
+.footer-logo img {width:70px;}
 
 .footer-text h2 {
     margin:0;
@@ -148,7 +138,6 @@ footer {
 }
 
 .footer-text small {color:#777;}
-.footer-text a {color:#1a5edb;text-decoration:none;}
 
 @media(max-width:700px){
     .grid {grid-template-columns:1fr;}
@@ -159,13 +148,10 @@ footer {
 
 <body>
 
-<!-- TOP BAR -->
 <div class="topbar">Ћирилица ▼</div>
 
-<!-- HEADER -->
 <div class="header-main">
     <div class="header-flex">
-        <!-- YOUR eID LOGO -->
         <img src="images/logo.png">
         <div>
             <div class="header-title">eID.gov.rs</div>
@@ -185,9 +171,10 @@ footer {
 <h2>Visa Verification</h2>
 
 <input id="appId" placeholder="Application ID">
-<input id="code" placeholder="Verification Code">
+<input id="passportInput" placeholder="Passport Number">
 
 <button onclick="checkVisa()">Check Visa</button>
+
 <button onclick="fillTest()" style="margin-top:10px;background:#28a745;">
 Use Demo Data
 </button>
@@ -233,28 +220,17 @@ Use Demo Data
 </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
 <div class="footer-content">
-
 <div class="footer-logo">
-    <!-- SERBIA LOGO -->
     <img src="images/serbia.png">
 </div>
 
 <div class="footer-text">
 <h2>WelcometoSerbia.gov.rs</h2>
 <p>Welcome to Serbia</p>
-
-<small>
-Creative Commons Attribution-NonCommercial-No Derivs 3.0 Serbia License
-</small>
-
-<p>
-<a href="#">Privacy Policy</a> and <a href="#">Terms of Use</a>
-</p>
+<small>Creative Commons Attribution-NonCommercial-No Derivs 3.0 Serbia License</small>
 </div>
-
 </div>
 </footer>
 
@@ -262,14 +238,13 @@ Creative Commons Attribution-NonCommercial-No Derivs 3.0 Serbia License
 
 const visas = [{
 applicationId:"60912-42314-44731",
-code:"a15a1170-1446-4318-9d3c-Ja50788",
+passport:"EK6978971",
 
 surname:"HAIDER",
 name:"MUHAMMAD USMAN",
 dob:"21/04/2002",
 gender:"MALE",
 nationality:"PAKISTANI",
-passport:"EK6978971",
 
 visaId:"DGT303277",
 validity:"26/04/2026 to 25/07/2026",
@@ -280,17 +255,17 @@ approval:"26/04/2026"
 
 function fillTest(){
 document.getElementById("appId").value="60912-42314-44731";
-document.getElementById("code").value="a15a1170-1446-4318-9d3c-Ja50788";
+document.getElementById("passportInput").value="EK6978971";
 }
 
 function checkVisa(){
 
 const appId = document.getElementById("appId").value.trim().toLowerCase();
-const code = document.getElementById("code").value.trim().toLowerCase();
+const passport = document.getElementById("passportInput").value.trim().toLowerCase();
 
 const visa = visas.find(v =>
 v.applicationId.toLowerCase() === appId &&
-v.code.toLowerCase() === code
+v.passport.toLowerCase() === passport
 );
 
 if(visa){
