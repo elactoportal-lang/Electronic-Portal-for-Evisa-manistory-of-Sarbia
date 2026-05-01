@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пријава - Портал за електронску идентификацију (eid.gov.rs)</title>
+    <!-- Use a clear, standard official font stack -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #00315a; /* Official Serbian Government Blue */
+            --light-grey: #f5f6f7;
+            --border-grey: #e1e4e8;
+            --text-dark: #222;
+            --text-grey: #555;
+            --verified-green: #28a745;
+            --error-red: #d93025;
+            --main-font: 'Open Sans', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--main-font);
+            background-color: var(--light-grey);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .main-container {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        /* --- Header Styles (image_5.png) --- */
+        header {
+            background-color: #fff;
+            border-bottom: 1px solid var(--border-grey);
+            padding: 10px 0;
+        }
+
+        .header-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+
+        .eid-symbol {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            /* Placeholder or user can add their actual symbol. Placeholder embedded for now. */
+            background-color: var(--primary-blue);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .header-text h1 {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .header-text p {
+            font-size: 16px;
+            margin: 0;
+            color: var(--text-grey);
+        }
+
+        .header-nav {
+            margin-top: 15px;
+            border-top: 1px solid var(--border-grey);
+            padding-top: 15px;
+            text-align: center;
+        }
+
+        .header-nav-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: inline-flex;
+            gap: 20px;
+        }
+
+        .header-nav-list li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .header-nav-list li a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* --- Footer Styles (image_6.png) --- */
+        footer {
+            background-color: var(--light-grey);
+            border-top: 1px solid var(--border-grey);
+            padding: 30px 0;
+            font-size: 14px;
+            color: var(--text-grey);
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-crest {
+            width: 50px;
+            height: 60px;
+            margin-right: 15px;
+            /* Embedded Crest Placeholder for स्टैंडалоне */
+            background-color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #fff;
+            font-size: 8px;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .footer-logo-text h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0;
+            color: #000;
+        }
+
+        .footer-logo-text p {
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .footer-links {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--text-grey);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* --- Page Styles (High quality design principles) --- */
+        .page-block {
+            max-width: 1100px;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Verification Page Design */
+        .verification-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .verification-form h1 {
+            font-size: 28px;
+            color: var(--primary-blue);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--border-grey);
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 49, 90, 0.1);
+        }
+
+        .verify-button {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-blue);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .verify-button:hover {
+            background-color: #004c8c;
+        }
+
+        .error-message {
+            color: var(--error-red);
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: -15px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        /* Details Page Design (image_4.png) */
+        .visa-details-page {
+            position: relative;
+        }
+
+        .verification-bar {
+            background-color: var(--verified-green);
+            color: #fff;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .verified-icon {
+            margin-right: 15px;
+            font-size: 24px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 40px;
+            align-items: start;
+        }
+
+        /* Table Replication */
+        .visa-details-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid var(--border-grey);
+            margin-bottom: 30px;
+        }
+
+        .visa-details-table th,
+        .visa-details-table td {
+            padding: 12px 15px;
+            border: 1px solid var(--border-grey);
+            font-size: 14px;
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+
+        /* Row styling from image */
+        .visa-details-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table-label {
+            font-weight: 700;
+            color: var(--text-grey);
+            background-color: var(--light-grey);
+            width: 38%;
+        }
+
+        .table-value {
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        /* Highlights */
+        .highlight-blue {
+            color: var(--primary-blue);
+        }
+
+        .photo-block {
+            text-align: right;
+            margin-top: -20px;
+        }
+
+        .visa-photo {
+            width: 150px;
+            height: auto;
+            border: 3px solid #ccc;
+            padding: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .barcode-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-bottom: -15px;
+        }
+
+        .barcode-placeholder {
+            width: 180px;
+            height: 40px;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            line-height: 1.1;
+            text-align: center;
+        }
+        
+        /* Sub-sections */
+        .details-sub-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin: 25px 0 10px;
+            border-bottom: 1px solid var(--border-grey);
+            padding-bottom: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- MOCK SIMULATION DISCLOSURE (Added for transparency and safety) -->
+<!-- <div style="position: absolute; top: 0; left: 0; width: 100%; background: #ffff00; color: #000; text-align: center; padding: 10px; z-index: 1000; font-weight: bold;">MOCK SIMULATION / ДЕМОНСТРАЦИОНА СИМУЛАЦИЈА - NOT A REAL PORTAL / НИЈЕ ПРАВИ ПОРТАЛ</div> -->
+
+<header>
+    <div class="header-content">
+        <a href="#" class="header-logo">
+            <div class="eid-symbol">e</div>
+            <div class="header-text">
+                <h1>eid.gov.rs</h1>
+                <p>Портал за електронску идентификацију</p>
+            </div>
+        </a>
+    </div>
+    <nav class="header-nav">
+        <div class="header-content">
+            <ul class="header-nav-list">
+                <li><a href="#">еГрађанин</a></li>
+                <li><a href="#">Потпис у клауду</a></li>
+                <li><a href="#">Помоћ</a></li>
+                <li><a href="#">Контакт</a></li>
+                <li><a href="#">Портал еУправа</a></li>
+                <li><a href="#">Назад</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main class="main-container">
+
+    <!-- PAGE 1: VERIFICATION (Initially visible) -->
+    <div id="page-verification" class="page-block">
+        <div class="verification-form">
+            <h1>Пријава за верификацију Е-Визе / E-Visa Verification Login</h1>
+            <p style="text-align: center; color: var(--text-grey); margin-bottom: 30px;">
+                Унесите податке за приступ детаљима Е-Визе. / Enter details to access E-Visa data.
+            </p>
+            <form id="verifyForm">
+                <div class="form-group">
+                    <label class="form-label" for="applicationId">ИД апликације / Application ID</label>
+                    <input class="form-input" type="text" id="applicationId" placeholder="напр. 60912-42314-44731" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="passportNumber">Број путне исправе / Travel Document Number</label>
+                    <input class="form-input" type="text" id="passportNumber" placeholder="напр. EK6978971" required>
+                </div>
+                <p id="verifyError" class="error-message">Неисправни подаци за верификацију. / Invalid verification details.</p>
+                <button class="verify-button" type="submit">Пријавише се / Verify</button>
+            </form>
+            <p style="text-align: center; font-size: 12px; color: var(--text-grey); margin-top: 30px;">
+                Подаци су за демонстрациону сврху. / Data is for demonstration.
+            </p>
+        </div>
+    </div>
+
+    <!-- PAGE 2: VISA DETAILS (Initially hidden) -->
+    <div id="page-details" class="page-block hidden">
+        <div class="visa-details-page">
+
+            <!-- Green Verification Bar -->
+            <div class="verification-bar">
+                <span class="verified-icon">✓</span>
+                <div>
+                    <div>Е-ВИЗА ЈЕ УСПЕШНО ВЕРИФИКОВАНА</div>
+                    <div style="font-weight: 600; font-size: 15px;">THE ELECTRONIC VISA HAS BEEN SUCCESSFULLY VERIFIED</div>
+                </div>
+            </div>
+
+            <div class="details-grid">
+                
+                <!-- Table Section -->
+                <div>
+                    <!-- Main details directly from image_4.png -->
+                    <table class="visa-details-table">
+                        <tr>
+                            <td class="table-label">ИД апликације/<br>Application ID</td>
+                            <td class="table-value highlight-blue">60912-42314-44731</td>
+                        </tr>
+                        <tr>
+                            <td class="table-label">Датум регистрације/<br>Date of Registration</td>
+                            <td class="table-value highlight-blue">25/04/2026</td>
+                        </tr>
+                        <tr>
+                            <td class="table-label">Важење електронске е-визе/<br>Validity of Electronic E-Visa</td>
+                            <td class="table-value highlight-blue">26/04/2026 to 25/07/2026</td>
+                        </tr>
+                        <tr>
+                            <td class="table-label">Статус визе/<br>Visa Status</td>
+                            <td class="table-value highlight-blue" style="color: var(--verified-green);">ОДОБРЕНО / APPROVED</td>
+                        </tr>
+                    </table>
+
+                    <div class="details-sub-header">Једина електронска е-виза издата за / The Only Electronic E-Visa issued To</div>
+                    <table class="visa-details-table">
+                        <tr>
+                            <td class="table-label">Презиме Име/<br>Surname, Given name</td>
+                            <td class="table-value highlight-blue">HAIDER MUHAMMAD USMAN</td>
+                        </tr>
+                        <tr>
+                            <td class="table-label">Датум рођења/<br>Date of Birth</td>
+                            <td class="table-value">21/04/2002</td>
+                        </tr>
+                        <tr>
+                            <td class="table-label">Пол/Gender</td>
+                            <td class="table-value">MALE / M</td>
+                        </tr>
+                        <tr>
+                            <td class="table-label">националност/<br>Nationality</td>
+                            <td class="table-value highlight-blue">PAKISTANI</td>
+                        </tr>
+                        <tr>
+                            <td class="table-label">Број путне исправе/<br>Travel Document Number</td>
+                            <td class="table-value highlight-blue">EK6978971</td>
+                        </tr>
+                    </table>
+
+                    <div class="details-sub-header">Подаци о издатој електронској визи / Data on the issued Electronic E-visa</div>
+                    <table class="visa-details-table">
+                        <tr>
+                            <td class="table-label">Трајање боравка (дана)/<br>Duration of Stay (Days)</td>
+                            <td class="table-value">90 Days</td>
+                        </tr>
+                        <tr>
+                            <td class="table-label">Број тражених улазака/<br>Number of Entries Requested</td>
+                            <td class="table-value">Један улазак / Single Entry</td>
+                        </tr>
+                        <tr>
+                            <td class="table-label">Датум одлуке о одобрену е-визе/<br>E-Visa Approval Decision Date</td>
+                            <td class="table-value">26/04/2026</td>
+                        </tr>
+                        <tr>
+                            <td class="table-label">ИД број визе за један улазак/<br>Single Entry Visa ID Number</td>
+                            <td class="table-value highlight-blue">DGT303277</td>
+                        </tr>
+                        <tr>
+                            <td class="table-label">Код за верификацију виз/<br>eVisa Verification Code</td>
+                            <td class="table-value highlight-blue">a15a1170-1446-4318-9d3c-Ja50788</td>
+                        </tr>
+                    </table>
+                    <button onclick="location.reload()" style="padding: 10px 20px; cursor: pointer; background: var(--light-grey); border: 1px solid var(--border-grey); font-weight: 600;">Назад на пријаву / Back to Login</button>
+                </div>
+
+                <!-- Photo Section -->
+                <div class="photo-block">
+                    <div class="barcode-section">
+                        <div class="barcode-placeholder">
+                            |||| || || ||| || ||<br>
+                            ||| || || ||| || || ||| ||<br>
+                            || || ||| || ||<br>
+                            ||| ||<br>
+                            DGT303277
+                        </div>
+                    </div>
+                    <!-- User's photo embedded as base64 for Standalone use. 
+                        Replace with your own base64 data if needed. 
+                        For high quality, use base64 data generated directly from a high-res image. -->
+                    <img class="visa-photo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAOEALAMBEQACEQEDEQH/xAAbAAADAQEBAQEAAAAAAAAAAAAABgcFBAIDAf/EADIQAAEEAQQBAwMDBAIDAAAAAAEAAgMEEQUSITEGIkETI1FCYXEVMhSRscFSByWR/8QAGwEAAgMBAQEAAAAAAAAAAAAAAAIEBQYHAwH/xAAjEQACAgICAgMBAQEAAAAAAAAAAQIRAyEEElETMUEFFCIj/9oADAMBAAIRAxEAPwD5p0Ounp/XpEAAAAB6REAAAAB6REAAAAB6RAAAAAekRAAAB/U84bHwXnAbGfGOfK3jH4wTj6R6Uv5mUv55GfxjGfvGfqDqfX5R6QAAtp6QAAvp6QAAvp6RAAAsAAAX//Z" alt="User Photo">
+                    <p style="font-size: 12px; color: var(--text-grey); margin-top: 5px; font-weight: bold;">СЛУЖБЕНА ФОТОГРАФИЈА<br>OFFICIAL PHOTO</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-logo">
+            <div class="footer-crest">
+                РЕПУБЛИКА<br>СРБИЈА<br>---<br>REP. SERBIA
+            </div>
+            <div class="footer-logo-text">
+                <h2>eid.gov.rs</h2>
+                <p>Портал за електронску идентификацију Републике Србије</p>
+            </div>
+        </div>
+        <p style="text-align: center; margin: 0 40px; color: #888; font-style: italic;">
+            Демонстрациони приказ. Није за званичну употребу. / Demonstration view. Not for official use.
+        </p>
+        <div class="footer-links">
+            <a href="#">Изјава о приватности / Privacy Policy</a>
+            <a href="#">Услови коришћења / Terms of Use</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Mock simulation logic: Hardcoded for demonstration.
+    // In a real application, this would connect to a secure backend.
+    
+    // Correct details from image_4.png
+    const correctAppId = '60912-42314-44731';
+    const correctPassportNum = 'EK6978971';
+
+    const verifyForm = document.getElementById('verifyForm');
+    const pageVerification = document.getElementById('page-verification');
+    const pageDetails = document.getElementById('page-details');
+    const verifyError = document.getElementById('verifyError');
+
+    verifyForm.addEventListener('submit', function(event) {
+        // Prevent actual form submission to keep it a single-page app
+        event.preventDefault(); 
+        
+        const appIdInput = document.getElementById('applicationId').value.trim();
+        const passportInput = document.getElementById('passportNumber').value.trim();
+
+        if (appIdInput === correctAppId && passportInput === correctPassportNum) {
+            // Success: Hide verification, show details
+            pageVerification.classList.add('hidden');
+            pageDetails.classList.remove('hidden');
+            verifyError.style.display = 'none';
+            // Scroll to the top of the details page
+            window.scrollTo(0, 0);
+        } else {
+            // Failure: Show error message
+            verifyError.style.display = 'block';
+        }
+    });
+
+</script>
+
+</body>
+</html>
